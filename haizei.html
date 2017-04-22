@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: url(img/qiubeijing1.jpg);
+			background-size: 100% 100%;
+		}
+		div{
+			width: 1350px;
+			height: 638px;
+			position: relative;
+		}
+		p{
+			position: absolute;
+			background-color: rgba(201,0,255,0.7);
+			border-radius: 50%;
+			background: url(img/qiu.gif) no-repeat;
+			background-size: 100%;
+		}
+	</style>
+	</head>
+	<body>
+		<div id="box">
+
+	</div>
+	</body>
+	<script type="text/javascript">
+		var box = document.getElementById("box");
+		function Ball(left,top,width){
+			this.left=left;
+			this.top=top;
+			this.width=width;
+			this.height=width;
+			this.moveX = parseInt(Math.random() * 10) - 5;
+			this.moveY = parseInt(Math.random() * 10) - 5;
+			this.zao();
+			this.dingwei();
+			this.move();
+		}
+		Ball.prototype.zao = function(){
+			this.dom = document.createElement("p");
+			box.appendChild(this.dom);
+			this.dom.style.width=this.width+"px";
+			this.dom.style.height=this.width+"px";
+			
+		}
+		Ball.prototype.dingwei=function(){
+			this.dom.style.left = this.left + "px";
+			console.log(this.dom.style.left);
+			this.dom.style.top = this.top + "px";
+		}
+		Ball.prototype.move = function(){
+			var self = this;
+			this.timer = setInterval(function(){
+				if(self.moveX==0){self.moveX=1}
+				if(self.moveY==0){self.moveY=1}
+				self.left += self.moveX;
+				self.top += self.moveY;
+				if(self.top>=635-self.width|| self.top<= 0){
+					self.moveY = -self.moveY;
+				}
+				if(self.left >=1360-self.width||self.left<= 0){
+					self.moveX = -self.moveX;
+				}
+			self.dingwei();
+			},10);
+		}
+		var x=1; 
+		var time= setInterval(function(){
+			x++;
+			new Ball(Math.random()*1200,Math.random()*500,Math.random()*50+50);
+			if(x>10){
+				clearInterval(time);
+			}
+		},500);
+		</script>
+</html>
